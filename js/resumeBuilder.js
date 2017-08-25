@@ -3,22 +3,40 @@ var bio = {
   "name" : "Donny Kemp",
   "role" : "Web Developer",
   "contacts" : {
-    "email" : "donny@donnykemp.com",
     "mobile" :"555-555-5555",
+    "email" : "donny@donnykemp.com",
     "github" : "DonnyKemp",
     "twitter" : "@tweet",
     "location" : "Las Vegas, NV"
   },
-  "welcome" : "Welcome to my page. Stay awhile and see what I've done.",
+  "welcomeMessage" : "Welcome to my page. Stay awhile and see what I've done.",
   "skills" : [
     "HTML", "CSS", "JavaScript"
   ],
   "biopic" : "images/headshot.jpg"
 };
 
-
-//var formattedName = HTMLheaderName.replace("%data%", bio.name);
-//var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
+//Creates and fills the education variable with education history.
+var education = {
+  "schools": [
+    {
+      "name": "Clackamas Community College",
+      "location": "Oregon City, OR",
+      "degree": "Associates",
+      "majors": "General Studies",
+      "dates": 2017,
+      "url" : "http://www.clackamas.edu/"
+    },
+  ],
+  "onlineCourses" : [
+    {
+        "title" : "Intro To Programming",
+        "school" : "Udacity",
+        "dates" : 2017,
+        "url" : "http://udacity.com"
+    }
+  ]
+};
 
 //Creates and fills the work variable with job history information.
 var work = {
@@ -50,35 +68,6 @@ var projects = {
   }]
 };
 
-//Creates and fills the education variable with education history.
-var education = {
-  "schools": [
-    {
-      "name": "Clackamas Community College",
-      "location": "Oregon City, OR",
-      "degree": "Associates",
-      "major": "General Studies",
-      "dates": 2017,
-      "url" : "http://www.clackamas.edu/"
-    },
-  ],
-  "onlineCourses" : [
-    {
-        "title" : "Intro To Programming",
-        "school" : "Udacity",
-        "dates" : 2017,
-        "url" : "http://udacity.com"
-    }
-  ]
-};
-
-
-
-
-//$("#header").prepend(formattedRole);
-//$("#header").prepend(formattedName);
-
-
 //Displays the info from bio on the resume page.
 //This creates the bio function.
 bio.display = function() {
@@ -96,25 +85,24 @@ bio.display = function() {
     $("#topContacts").append(formattedbioTwitter);
     var formattedbioLocation = HTMLlocation.replace("%data%", bio.contacts.location);
     $("#topContacts").append(formattedbioLocation);
-    var formattedwelcomeMessage = HTMLwelcomeMsg.replace("%data%", bio.welcome);
+    var formattedwelcomeMessage = HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage);
     $("#header").append(formattedwelcomeMessage);
     var formattedbiopic = HTMLbioPic.replace("%data%", bio.biopic);
     $("#header").append(formattedbiopic);
+
+    //Adds skills to the resume page.
+    if (bio.skills.length > 0) {
+      $('#header').append(HTMLskillsStart);
+
+      for (var m = 0, len = bio.skills.length; m < len; m++) {
+        var formattedSkills = HTMLskills.replace("%data%", bio.skills[m]);
+
+        $('#skills').append(formattedSkills);
+      }
+    }
 };
 //This calls the bio function.
 bio.display();
-
-//Adds skills to the resume page.
-if (bio.skills.length > 0) {
-    $("#header").append(HTMLskillsStart);
-
-    var formattedSkill = HTMLskills.replace("%data%", bio.skills[0]);
-    $("#skills").append(formattedSkill);
-    formattedSkill = HTMLskills.replace("%data%", bio.skills[1]);
-    $("#skills").append(formattedSkill);
-    formattedSkill = HTMLskills.replace("%data%", bio.skills[2]);
-    $("#skills").append(formattedSkill);
-}
 
 //Displays job history from work on the resume page.
 //This creates the work function.
@@ -184,7 +172,7 @@ education.display = function() {
 			var formattedSchoolDegree = HTMLschoolDegree.replace("%data%", education.schools[k].degree);
 			var formattedSchoolDates = HTMLschoolDates.replace("%data%", education.schools[k].dates);
 			var formattedSchoolLocation = HTMLschoolLocation.replace("%data%", education.schools[k].location);
-			var formattedSchoolMajor = HTMLschoolMajor.replace("%data%", education.schools[k].major);
+			var formattedSchoolMajor = HTMLschoolMajor.replace("%data%", education.schools[k].majors);
 
 			$(".education-entry:last").append(formattedSchoolName + formattedSchoolDegree);
 			$(".education-entry:last").append(formattedSchoolDates);
@@ -208,7 +196,6 @@ education.display = function() {
 				$(".education-entry:last").append(formattedOnlineURL);
 			}
 		}
-
 	}
 };
 //This calls the education function.
