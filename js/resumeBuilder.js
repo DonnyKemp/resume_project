@@ -1,6 +1,6 @@
 //Creates a variable data to reference the string "%data%", which will save time
 //typing later in the code
-var data = "%data%"
+var data = "%data%";
 
 //Creates and fills the bio variable with personal information. This information
 //will be used later in the code to fill in the header and footer sections.
@@ -89,7 +89,7 @@ bio.display = function() {
     var formattedLocation = HTMLlocation.replace(data, bio.contacts.location);
     var formattedwelcomeMessage = HTMLwelcomeMsg.replace(data, bio.welcomeMessage);
     var formattedbiopic = HTMLbioPic.replace(data, bio.biopic);
-    $("#topContacts, #footerContacts").append(formattedMobile, formattedEmail, formattedGithub, formattedtwitter, formattedLocation, );
+    $("#topContacts, #footerContacts").append(formattedMobile, formattedEmail, formattedGithub, formattedtwitter, formattedLocation);
     $("#header").append(formattedwelcomeMessage);
     $("#header").append(formattedbiopic);
 
