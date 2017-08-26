@@ -1,4 +1,9 @@
-//Creates and fills the bio variable with personal information.
+//Creates a variable data to reference the string "%data%", which will save time
+//typing later in the code
+var data = "%data%"
+
+//Creates and fills the bio variable with personal information. This information
+//will be used later in the code to fill in the header and footer sections.
 var bio = {
     "name": "Donny Kemp",
     "role": "Web Developer",
@@ -16,25 +21,29 @@ var bio = {
     "biopic": "images/headshot.jpg"
 };
 
-//Creates and fills the education variable with education history.
+//Creates and fills the education variable with education history. This information
+//will be used later in the code in the function that displays education history.
 var education = {
     "schools": [{
         "name": "Clackamas Community College",
         "location": "Oregon City, OR",
         "degree": "Associates",
-        "majors": "General Studies",
-        "dates": 2017,
+        "majors": [
+            "General Studies"
+        ],
+        "dates": "2017",
         "url": "http://www.clackamas.edu/"
     }, ],
     "onlineCourses": [{
         "title": "Intro To Programming",
         "school": "Udacity",
-        "dates": 2017,
+        "dates": "2017",
         "url": "http://udacity.com"
     }]
 };
 
-//Creates and fills the work variable with job history information.
+//Creates and fills the work variable with job history information. This information
+//will be used later in the function to display work history.
 var work = {
     "jobs": [{
             "employer": "Copytronix",
@@ -54,6 +63,7 @@ var work = {
 };
 
 //Creates and fills the projects variable with previous programming projects.
+//This information will be used later in the function to display previous projects.
 var projects = {
     "projects": [{
         "title": "Star Wars Quiz",
@@ -63,26 +73,24 @@ var projects = {
     }]
 };
 
-//Displays the info from bio on the resume page.
-//This creates the bio function.
+//Displays the info from bio on the resume page, in the header and footer sections.
+//Creates new variables from
+//variables in helper.js, by replacing the "%data%" placeholder with information
+//stored in my bio section.
 bio.display = function() {
 
-    var formattedName = HTMLheaderName.replace("%data%", bio.name);
-    var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
+    var formattedName = HTMLheaderName.replace(data, bio.name);
+    var formattedRole = HTMLheaderRole.replace(data, bio.role);
     $("#header").prepend(formattedRole).prepend(formattedName);
-    var formattedbioMobile = HTMLmobile.replace("%data%", bio.contacts.mobile);
-    $("#topContacts").append(formattedbioMobile);
-    var formattedbioEmail = HTMLemail.replace("%data%", bio.contacts.email);
-    $("#topContacts").append(formattedbioEmail);
-    var formattedbioGithub = HTMLgithub.replace("%data%", bio.contacts.github);
-    $("#topContacts").append(formattedbioGithub);
-    var formattedbioTwitter = HTMLtwitter.replace("%data%", bio.contacts.twitter);
-    $("#topContacts").append(formattedbioTwitter);
-    var formattedbioLocation = HTMLlocation.replace("%data%", bio.contacts.location);
-    $("#topContacts").append(formattedbioLocation);
-    var formattedwelcomeMessage = HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage);
+    var formattedMobile = HTMLmobile.replace(data, bio.contacts.mobile);
+    var formattedEmail = HTMLemail.replace(data, bio.contacts.email);
+    var formattedGithub = HTMLgithub.replace(data, bio.contacts.github);
+    var formattedtwitter = HTMLtwitter.replace(data, bio.contacts.twitter);
+    var formattedLocation = HTMLlocation.replace(data, bio.contacts.location);
+    var formattedwelcomeMessage = HTMLwelcomeMsg.replace(data, bio.welcomeMessage);
+    var formattedbiopic = HTMLbioPic.replace(data, bio.biopic);
+    $("#topContacts, #footerContacts").append(formattedMobile, formattedEmail, formattedGithub, formattedtwitter, formattedLocation, );
     $("#header").append(formattedwelcomeMessage);
-    var formattedbiopic = HTMLbioPic.replace("%data%", bio.biopic);
     $("#header").append(formattedbiopic);
 
     //Adds skills to the resume page.
@@ -90,7 +98,7 @@ bio.display = function() {
         $('#header').append(HTMLskillsStart);
 
         for (var m = 0, len = bio.skills.length; m < len; m++) {
-            var formattedSkills = HTMLskills.replace("%data%", bio.skills[m]);
+            var formattedSkills = HTMLskills.replace(data, bio.skills[m]);
 
             $('#skills').append(formattedSkills);
         }
@@ -105,12 +113,12 @@ work.display = function() {
     for (var i = 0; i < work.jobs.length; i++) {
         $("#workExperience").append(HTMLworkStart);
 
-        var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[i].employer);
-        formattedEmployer += HTMLworkTitle.replace("%data%", work.jobs[i].title);
+        var formattedEmployer = HTMLworkEmployer.replace(data, work.jobs[i].employer);
+        formattedEmployer += HTMLworkTitle.replace(data, work.jobs[i].title);
 
-        var formattedDates = HTMLworkDates.replace("%data%", work.jobs[i].dates);
-        var formattedLocation = HTMLworkLocation.replace("%data%", work.jobs[i].location);
-        var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[i].description);
+        var formattedDates = HTMLworkDates.replace(data, work.jobs[i].dates);
+        var formattedLocation = HTMLworkLocation.replace(data, work.jobs[i].location);
+        var formattedDescription = HTMLworkDescription.replace(data, work.jobs[i].description);
 
         $(".work-entry:last").append(formattedEmployer, formattedDates, formattedLocation, formattedDescription);
     }
@@ -140,14 +148,14 @@ projects.display = function() {
         formattedTitle.text(projects.projects[h].title);
         formattedTitle.attr('href', projects.projects[h].url);
 
-        var formattedDates = HTMLprojectDates.replace("%data%", projects.projects[h].dates);
-        var formattedDescription = HTMLprojectDescription.replace("%data%", projects.projects[h].description);
+        var formattedDates = HTMLprojectDates.replace(data, projects.projects[h].dates);
+        var formattedDescription = HTMLprojectDescription.replace(data, projects.projects[h].description);
 
         $(".project-entry:last").append(formattedTitle, formattedDates, formattedDescription);
 
         if (projects.projects[h].images.length > 0) {
             for (var j = 0; j < projects.projects[h].images.length; j++) {
-                var formattedImage = HTMLprojectImage.replace("%data%", projects.projects[h].images[j]);
+                var formattedImage = HTMLprojectImage.replace(data, projects.projects[h].images[j]);
                 $(".project-entry:last").append(formattedImage);
             }
         }
@@ -163,11 +171,11 @@ education.display = function() {
         for (var k = 0; k < education.schools.length; k++) {
             $("#education").append(HTMLschoolStart);
 
-            var formattedSchoolName = HTMLschoolName.replace("%data%", education.schools[k].name).replace("#", education.schools[k].url);
-            var formattedSchoolDegree = HTMLschoolDegree.replace("%data%", education.schools[k].degree);
-            var formattedSchoolDates = HTMLschoolDates.replace("%data%", education.schools[k].dates);
-            var formattedSchoolLocation = HTMLschoolLocation.replace("%data%", education.schools[k].location);
-            var formattedSchoolMajor = HTMLschoolMajor.replace("%data%", education.schools[k].majors);
+            var formattedSchoolName = HTMLschoolName.replace(data, education.schools[k].name).replace("#", education.schools[k].url);
+            var formattedSchoolDegree = HTMLschoolDegree.replace(data, education.schools[k].degree);
+            var formattedSchoolDates = HTMLschoolDates.replace(data, education.schools[k].dates);
+            var formattedSchoolLocation = HTMLschoolLocation.replace(data, education.schools[k].location);
+            var formattedSchoolMajor = HTMLschoolMajor.replace(data, education.schools[k].majors);
 
             $(".education-entry:last").append(formattedSchoolName + formattedSchoolDegree);
             $(".education-entry:last").append(formattedSchoolDates);
@@ -181,10 +189,10 @@ education.display = function() {
             for (var l = 0; l < education.onlineCourses.length; l++) {
                 $("#education").append(HTMLschoolStart);
 
-                var formattedOnlineTitle = HTMLonlineTitle.replace("%data%", education.onlineCourses[l].title).replace("#", education.onlineCourses[l].url);
-                var formattedOnlineSchool = HTMLonlineSchool.replace("%data%", education.onlineCourses[l].school);
-                var formattedOnlineDates = HTMLonlineDates.replace("%data%", education.onlineCourses[l].dates);
-                var formattedOnlineURL = HTMLonlineURL.replace("%data%", education.onlineCourses[l].url).replace("#", education.onlineCourses[l].url);
+                var formattedOnlineTitle = HTMLonlineTitle.replace(data, education.onlineCourses[l].title).replace("#", education.onlineCourses[l].url);
+                var formattedOnlineSchool = HTMLonlineSchool.replace(data, education.onlineCourses[l].school);
+                var formattedOnlineDates = HTMLonlineDates.replace(data, education.onlineCourses[l].dates);
+                var formattedOnlineURL = HTMLonlineURL.replace(data, education.onlineCourses[l].url).replace("#", education.onlineCourses[l].url);
 
                 $(".education-entry:last").append(formattedOnlineTitle + formattedOnlineSchool);
                 $(".education-entry:last").append(formattedOnlineDates);
